@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>乔心远的生活记录</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 添加生日字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,6 +20,7 @@
             --background-color: #f9f9f9;
             --card-color: #ffffff;
             --accent-color: #e0e0e0;
+            --birthday-color: #ff6b6b;
         }
         
         body {
@@ -115,6 +118,45 @@
             color: var(--secondary-color);
             max-width: 600px;
             margin: 0 auto;
+        }
+        
+        /* 生日祝福样式 */
+        .birthday-link {
+            display: inline-block;
+            margin: 25px 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: var(--birthday-color);
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa36b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .birthday-link:hover {
+            transform: scale(1.1) rotate(-2deg);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .birthday-link:after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa36b);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .birthday-link:hover:after {
+            transform: scaleX(1);
         }
         
         /* 内容卡片区域 */
@@ -291,6 +333,10 @@
                 font-size: 28px;
             }
             
+            .birthday-link {
+                font-size: 32px;
+            }
+            
             .content-grid {
                 grid-template-columns: 1fr;
             }
@@ -360,6 +406,8 @@
             <!-- 欢迎区域 -->
             <section class="welcome-section">
                 <h1>乔心远的生活记录</h1>
+                <!-- 添加生日祝福链接 -->
+                <a href="birthday.html" class="birthday-link">HAPPY Birthday!</a>
                 <p>记录生活点滴，分享思考感悟。简约不简单，成熟不沉重。</p>
             </section>
             
