@@ -1,1 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乔心远的生活记录</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- 添加生日字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2c2c2c;
+            --secondary-color: #6b6b6b;
+            --background-color: #f9f9f9;
+            --card-color: #ffffff;
+            --accent-color: #e0e0e0;
+            --birthday-color: #ff6b6b;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--primary-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏样式 */
+        header {
+            background-color: var(--card-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 400;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .nav-links a.active:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+        }
+        
+        /* 主内容区域 */
+        main {
+            padding: 60px 0;
+        }
+        
+        .welcome-section {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        
+        .welcome-section h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-section p {
+            font-size: 18px;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 生日祝福样式 */
+        .birthday-link {
+            display: inline-block;
+            margin: 25px 0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: var(--birthday-color);
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa36b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .birthday-link:hover {
+            transform: scale(1.1) rotate(-2deg);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        .birthday-link:after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa36b);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .birthday-link:hover:after {
+            transform: scaleX(1);
+        }
+        
+        /* 内容卡片区域 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .content-card {
+            background-color: var(--card-color);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-image {
+            height: 180px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .card-content p {
+            color: var(--secondary-color);
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-date {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        
+        .card-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .card-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* 页面链接区域 */
+        .pages-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 24px;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .page-link {
+            display: block;
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--primary-color);
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .page-link h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .page-link p {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .welcome-section h1 {
+                font-size: 28px;
+            }
+            
+            .birthday-link {
+                font-size: 32px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--card-color);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+            
+            .nav-links.active li {
+                margin: 10px 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">乔心远</a>
+                <div class="menu-toggle">☰</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#">生活记录</a></li>
+                    <li><a href="#">读书笔记</a></li>
+                    <li><a href="#">旅行足迹</a></li>
+                    <li><a href="#">关于我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- 主内容区域 -->
+    <main>
+        <div class="container">
+            <!-- 欢迎区域 -->
+            <section class="welcome-section">
+                <h1>乔心远的生活记录</h1>
+                <!-- 添加生日祝福链接 -->
+                <a href="birthday.html" class="birthday-link">HAPPY Birthday!</a>
+                <p>记录生活点滴，分享思考感悟。简约不简单，成熟不沉重。</p>
+            </section>
+            
+            <!-- 最新内容区域 -->
+            <section class="content-section">
+                <h2 class="section-title">最近更新</h2>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-image">图片</div>
+                        <div class="card-content">
+                            <div class="card-date">2023年10月15日</div>
+                            <h3>秋日散步随想</h3>
+                            <p>在这个金色的季节，漫步在林间小道上，思考时间的流逝与生活的意义...</p>
+                            <a href="#" class="card-link">阅读更多 →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-image">图片</div>
+                        <div class="card-content">
+                            <div class="card-date">2023年10月8日</div>
+                            <h3>《简朴生活》读书笔记</h3>
+                            <p>这本书让我重新思考了物质与精神的关系，以及如何在现代生活中保持内心的宁静...</p>
+                            <a href="#" class="card-link">阅读更多 →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <div class="card-image">图片</div>
+                        <div class="card-content">
+                            <div class="card-date">2023年9月30日</div>
+                            <h3>周末厨房实验</h3>
+                            <p>尝试了几道新菜谱，发现烹饪不仅是一种技能，更是一种冥想和创造的过程...</p>
+                            <a href="#" class="card-link">阅读更多 →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 页面链接区域 -->
+            <section class="pages-section">
+                <h2 class="section-title">探索更多</h2>
+                <div class="pages-grid">
+                    <a href="#" class="page-link">
+                        <h3>生活记录</h3>
+                        <p>日常思考与生活片段</p>
+                    </a>
+                    
+                    <a href="#" class="page-link">
+                        <h3>读书笔记</h3>
+                        <p>阅读心得与书评</p>
+                    </a>
+                    
+                    <a href="#" class="page-link">
+                        <h3>旅行足迹</h3>
+                        <p>旅途见闻与感悟</p>
+                    </a>
+                    
+                    <a href="#" class="page-link">
+                        <h3>摄影集</h3>
+                        <p>用镜头记录生活</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">乔心远</div>
+                    <p>记录生活，分享感悟</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">首页</a>
+                    <a href="#">生活记录</a>
+                    <a href="#">读书笔记</a>
+                    <a href="#">关于我</a>
+                </div>
+                <div class="footer-links">
+                    <a href="#">联系我</a>
+                    <a href="#">隐私政策</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 乔心远的生活记录 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
